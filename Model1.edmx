@@ -1,0 +1,670 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="FILM_PK" />
+          </Key>
+          <Property Name="FILM_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CIM" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="JATEKIDO" Type="int" Nullable="false" />
+          <Property Name="MUFAJ_FK" Type="int" Nullable="false" />
+          <Property Name="KORHATAR" Type="int" Nullable="false" />
+          <Property Name="SZINKRON" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Időpont">
+          <Key>
+            <PropertyRef Name="IDOPONT_PK" />
+          </Key>
+          <Property Name="IDOPONT_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDOPONTOK" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jegy">
+          <Key>
+            <PropertyRef Name="JEGY_PK" />
+          </Key>
+          <Property Name="JEGY_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VETITES_FK" Type="int" Nullable="false" />
+          <Property Name="VENDEG_NEV" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KATEGORIA_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategória">
+          <Key>
+            <PropertyRef Name="KATEGORIA_PK" />
+          </Key>
+          <Property Name="KATEGORIA_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NEV" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="AR" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mozi">
+          <Key>
+            <PropertyRef Name="MOZI_PK" />
+          </Key>
+          <Property Name="MOZI_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NEV" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="VAROS_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Műfaj">
+          <Key>
+            <PropertyRef Name="MUFAJ_PK" />
+          </Key>
+          <Property Name="MUFAJ_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NEV" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nap">
+          <Key>
+            <PropertyRef Name="NAP_PK" />
+          </Key>
+          <Property Name="NAP_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAPOK" Type="varchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Terem">
+          <Key>
+            <PropertyRef Name="TEREM_PK" />
+          </Key>
+          <Property Name="TEREM_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MOZI_FK" Type="int" Nullable="false" />
+          <Property Name="NEV" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ULOHELYEK" Type="int" Nullable="false" />
+          <Property Name="IMAX" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Város">
+          <Key>
+            <PropertyRef Name="VÁROS_PK" />
+          </Key>
+          <Property Name="VÁROS_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NEV" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vetítés">
+          <Key>
+            <PropertyRef Name="VETITES_PK" />
+          </Key>
+          <Property Name="VETITES_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FILM_FK" Type="int" Nullable="false" />
+          <Property Name="MOZI_FK" Type="int" Nullable="false" />
+          <Property Name="TEREM_FK" Type="int" Nullable="false" />
+          <Property Name="NAP_FK" Type="int" Nullable="false" />
+          <Property Name="IDOPONTOK_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="Film_fk0">
+          <End Role="Műfaj" Type="Self.Műfaj" Multiplicity="1" />
+          <End Role="Film" Type="Self.Film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Műfaj">
+              <PropertyRef Name="MUFAJ_PK" />
+            </Principal>
+            <Dependent Role="Film">
+              <PropertyRef Name="MUFAJ_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Jegy_fk0">
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="1" />
+          <End Role="Jegy" Type="Self.Jegy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vetítés">
+              <PropertyRef Name="VETITES_PK" />
+            </Principal>
+            <Dependent Role="Jegy">
+              <PropertyRef Name="VETITES_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Jegy_fk2">
+          <End Role="Kategória" Type="Self.Kategória" Multiplicity="1" />
+          <End Role="Jegy" Type="Self.Jegy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategória">
+              <PropertyRef Name="KATEGORIA_PK" />
+            </Principal>
+            <Dependent Role="Jegy">
+              <PropertyRef Name="KATEGORIA_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Mozi_fk0">
+          <End Role="Város" Type="Self.Város" Multiplicity="1" />
+          <End Role="Mozi" Type="Self.Mozi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Város">
+              <PropertyRef Name="VÁROS_PK" />
+            </Principal>
+            <Dependent Role="Mozi">
+              <PropertyRef Name="VAROS_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Terem_fk0">
+          <End Role="Mozi" Type="Self.Mozi" Multiplicity="1" />
+          <End Role="Terem" Type="Self.Terem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mozi">
+              <PropertyRef Name="MOZI_PK" />
+            </Principal>
+            <Dependent Role="Terem">
+              <PropertyRef Name="MOZI_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk0">
+          <End Role="Film" Type="Self.Film" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FILM_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="FILM_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk1">
+          <End Role="Mozi" Type="Self.Mozi" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mozi">
+              <PropertyRef Name="MOZI_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="MOZI_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk2">
+          <End Role="Terem" Type="Self.Terem" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Terem">
+              <PropertyRef Name="TEREM_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="TEREM_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk3">
+          <End Role="Nap" Type="Self.Nap" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nap">
+              <PropertyRef Name="NAP_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="NAP_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk4">
+          <End Role="Időpont" Type="Self.Időpont" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Időpont">
+              <PropertyRef Name="IDOPONT_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="IDOPONTOK_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Film" EntityType="Self.Film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Időpont" EntityType="Self.Időpont" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jegy" EntityType="Self.Jegy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategória" EntityType="Self.Kategória" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mozi" EntityType="Self.Mozi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Műfaj" EntityType="Self.Műfaj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nap" EntityType="Self.Nap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Terem" EntityType="Self.Terem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Város" EntityType="Self.Város" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vetítés" EntityType="Self.Vetítés" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Film_fk0" Association="Self.Film_fk0">
+            <End Role="Műfaj" EntitySet="Műfaj" />
+            <End Role="Film" EntitySet="Film" />
+          </AssociationSet>
+          <AssociationSet Name="Jegy_fk0" Association="Self.Jegy_fk0">
+            <End Role="Vetítés" EntitySet="Vetítés" />
+            <End Role="Jegy" EntitySet="Jegy" />
+          </AssociationSet>
+          <AssociationSet Name="Jegy_fk2" Association="Self.Jegy_fk2">
+            <End Role="Kategória" EntitySet="Kategória" />
+            <End Role="Jegy" EntitySet="Jegy" />
+          </AssociationSet>
+          <AssociationSet Name="Mozi_fk0" Association="Self.Mozi_fk0">
+            <End Role="Város" EntitySet="Város" />
+            <End Role="Mozi" EntitySet="Mozi" />
+          </AssociationSet>
+          <AssociationSet Name="Terem_fk0" Association="Self.Terem_fk0">
+            <End Role="Mozi" EntitySet="Mozi" />
+            <End Role="Terem" EntitySet="Terem" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk0" Association="Self.Vetítés_fk0">
+            <End Role="Film" EntitySet="Film" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk1" Association="Self.Vetítés_fk1">
+            <End Role="Mozi" EntitySet="Mozi" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk2" Association="Self.Vetítés_fk2">
+            <End Role="Terem" EntitySet="Terem" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk3" Association="Self.Vetítés_fk3">
+            <End Role="Nap" EntitySet="Nap" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk4" Association="Self.Vetítés_fk4">
+            <End Role="Időpont" EntitySet="Időpont" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="FILM_PK" />
+          </Key>
+          <Property Name="FILM_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CIM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JATEKIDO" Type="Int32" Nullable="false" />
+          <Property Name="MUFAJ_FK" Type="Int32" Nullable="false" />
+          <Property Name="KORHATAR" Type="Int32" Nullable="false" />
+          <Property Name="SZINKRON" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Műfaj" Relationship="Self.Film_fk0" FromRole="Film" ToRole="Műfaj" />
+          <NavigationProperty Name="Vetítés" Relationship="Self.Vetítés_fk0" FromRole="Film" ToRole="Vetítés" />
+        </EntityType>
+        <EntityType Name="Időpont">
+          <Key>
+            <PropertyRef Name="IDOPONT_PK" />
+          </Key>
+          <Property Name="IDOPONT_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDOPONTOK" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Vetítés" Relationship="Self.Vetítés_fk4" FromRole="Időpont" ToRole="Vetítés" />
+        </EntityType>
+        <EntityType Name="Jegy">
+          <Key>
+            <PropertyRef Name="JEGY_PK" />
+          </Key>
+          <Property Name="JEGY_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VETITES_FK" Type="Int32" Nullable="false" />
+          <Property Name="VENDEG_NEV" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KATEGORIA_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vetítés" Relationship="Self.Jegy_fk0" FromRole="Jegy" ToRole="Vetítés" />
+          <NavigationProperty Name="Kategória" Relationship="Self.Jegy_fk2" FromRole="Jegy" ToRole="Kategória" />
+        </EntityType>
+        <EntityType Name="Kategória">
+          <Key>
+            <PropertyRef Name="KATEGORIA_PK" />
+          </Key>
+          <Property Name="KATEGORIA_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NEV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AR" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Jegy" Relationship="Self.Jegy_fk2" FromRole="Kategória" ToRole="Jegy" />
+        </EntityType>
+        <EntityType Name="Mozi">
+          <Key>
+            <PropertyRef Name="MOZI_PK" />
+          </Key>
+          <Property Name="MOZI_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NEV" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VAROS_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Város" Relationship="Self.Mozi_fk0" FromRole="Mozi" ToRole="Város" />
+          <NavigationProperty Name="Terem" Relationship="Self.Terem_fk0" FromRole="Mozi" ToRole="Terem" />
+          <NavigationProperty Name="Vetítés" Relationship="Self.Vetítés_fk1" FromRole="Mozi" ToRole="Vetítés" />
+        </EntityType>
+        <EntityType Name="Műfaj">
+          <Key>
+            <PropertyRef Name="MUFAJ_PK" />
+          </Key>
+          <Property Name="MUFAJ_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NEV" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Film" Relationship="Self.Film_fk0" FromRole="Műfaj" ToRole="Film" />
+        </EntityType>
+        <EntityType Name="Nap">
+          <Key>
+            <PropertyRef Name="NAP_PK" />
+          </Key>
+          <Property Name="NAP_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAPOK" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Vetítés" Relationship="Self.Vetítés_fk3" FromRole="Nap" ToRole="Vetítés" />
+        </EntityType>
+        <EntityType Name="Terem">
+          <Key>
+            <PropertyRef Name="TEREM_PK" />
+          </Key>
+          <Property Name="TEREM_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MOZI_FK" Type="Int32" Nullable="false" />
+          <Property Name="NEV" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ULOHELYEK" Type="Int32" Nullable="false" />
+          <Property Name="IMAX" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Mozi" Relationship="Self.Terem_fk0" FromRole="Terem" ToRole="Mozi" />
+          <NavigationProperty Name="Vetítés" Relationship="Self.Vetítés_fk2" FromRole="Terem" ToRole="Vetítés" />
+        </EntityType>
+        <EntityType Name="Város">
+          <Key>
+            <PropertyRef Name="VÁROS_PK" />
+          </Key>
+          <Property Name="VÁROS_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NEV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Mozi" Relationship="Self.Mozi_fk0" FromRole="Város" ToRole="Mozi" />
+        </EntityType>
+        <EntityType Name="Vetítés">
+          <Key>
+            <PropertyRef Name="VETITES_PK" />
+          </Key>
+          <Property Name="VETITES_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FILM_FK" Type="Int32" Nullable="false" />
+          <Property Name="MOZI_FK" Type="Int32" Nullable="false" />
+          <Property Name="TEREM_FK" Type="Int32" Nullable="false" />
+          <Property Name="NAP_FK" Type="Int32" Nullable="false" />
+          <Property Name="IDOPONTOK_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Film" Relationship="Self.Vetítés_fk0" FromRole="Vetítés" ToRole="Film" />
+          <NavigationProperty Name="Időpont" Relationship="Self.Vetítés_fk4" FromRole="Vetítés" ToRole="Időpont" />
+          <NavigationProperty Name="Jegy" Relationship="Self.Jegy_fk0" FromRole="Vetítés" ToRole="Jegy" />
+          <NavigationProperty Name="Mozi" Relationship="Self.Vetítés_fk1" FromRole="Vetítés" ToRole="Mozi" />
+          <NavigationProperty Name="Nap" Relationship="Self.Vetítés_fk3" FromRole="Vetítés" ToRole="Nap" />
+          <NavigationProperty Name="Terem" Relationship="Self.Vetítés_fk2" FromRole="Vetítés" ToRole="Terem" />
+        </EntityType>
+        <Association Name="Film_fk0">
+          <End Role="Műfaj" Type="Self.Műfaj" Multiplicity="1" />
+          <End Role="Film" Type="Self.Film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Műfaj">
+              <PropertyRef Name="MUFAJ_PK" />
+            </Principal>
+            <Dependent Role="Film">
+              <PropertyRef Name="MUFAJ_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk0">
+          <End Role="Film" Type="Self.Film" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FILM_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="FILM_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk4">
+          <End Role="Időpont" Type="Self.Időpont" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Időpont">
+              <PropertyRef Name="IDOPONT_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="IDOPONTOK_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Jegy_fk0">
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="1" />
+          <End Role="Jegy" Type="Self.Jegy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vetítés">
+              <PropertyRef Name="VETITES_PK" />
+            </Principal>
+            <Dependent Role="Jegy">
+              <PropertyRef Name="VETITES_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Jegy_fk2">
+          <End Role="Kategória" Type="Self.Kategória" Multiplicity="1" />
+          <End Role="Jegy" Type="Self.Jegy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategória">
+              <PropertyRef Name="KATEGORIA_PK" />
+            </Principal>
+            <Dependent Role="Jegy">
+              <PropertyRef Name="KATEGORIA_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Mozi_fk0">
+          <End Role="Város" Type="Self.Város" Multiplicity="1" />
+          <End Role="Mozi" Type="Self.Mozi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Város">
+              <PropertyRef Name="VÁROS_PK" />
+            </Principal>
+            <Dependent Role="Mozi">
+              <PropertyRef Name="VAROS_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Terem_fk0">
+          <End Role="Mozi" Type="Self.Mozi" Multiplicity="1" />
+          <End Role="Terem" Type="Self.Terem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mozi">
+              <PropertyRef Name="MOZI_PK" />
+            </Principal>
+            <Dependent Role="Terem">
+              <PropertyRef Name="MOZI_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk1">
+          <End Role="Mozi" Type="Self.Mozi" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mozi">
+              <PropertyRef Name="MOZI_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="MOZI_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk3">
+          <End Role="Nap" Type="Self.Nap" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nap">
+              <PropertyRef Name="NAP_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="NAP_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Vetítés_fk2">
+          <End Role="Terem" Type="Self.Terem" Multiplicity="1" />
+          <End Role="Vetítés" Type="Self.Vetítés" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Terem">
+              <PropertyRef Name="TEREM_PK" />
+            </Principal>
+            <Dependent Role="Vetítés">
+              <PropertyRef Name="TEREM_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Film" EntityType="Self.Film" />
+          <EntitySet Name="Időpont" EntityType="Self.Időpont" />
+          <EntitySet Name="Jegy" EntityType="Self.Jegy" />
+          <EntitySet Name="Kategória" EntityType="Self.Kategória" />
+          <EntitySet Name="Mozi" EntityType="Self.Mozi" />
+          <EntitySet Name="Műfaj" EntityType="Self.Műfaj" />
+          <EntitySet Name="Nap" EntityType="Self.Nap" />
+          <EntitySet Name="Terem" EntityType="Self.Terem" />
+          <EntitySet Name="Város" EntityType="Self.Város" />
+          <EntitySet Name="Vetítés" EntityType="Self.Vetítés" />
+          <AssociationSet Name="Film_fk0" Association="Self.Film_fk0">
+            <End Role="Műfaj" EntitySet="Műfaj" />
+            <End Role="Film" EntitySet="Film" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk0" Association="Self.Vetítés_fk0">
+            <End Role="Film" EntitySet="Film" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk4" Association="Self.Vetítés_fk4">
+            <End Role="Időpont" EntitySet="Időpont" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Jegy_fk0" Association="Self.Jegy_fk0">
+            <End Role="Vetítés" EntitySet="Vetítés" />
+            <End Role="Jegy" EntitySet="Jegy" />
+          </AssociationSet>
+          <AssociationSet Name="Jegy_fk2" Association="Self.Jegy_fk2">
+            <End Role="Kategória" EntitySet="Kategória" />
+            <End Role="Jegy" EntitySet="Jegy" />
+          </AssociationSet>
+          <AssociationSet Name="Mozi_fk0" Association="Self.Mozi_fk0">
+            <End Role="Város" EntitySet="Város" />
+            <End Role="Mozi" EntitySet="Mozi" />
+          </AssociationSet>
+          <AssociationSet Name="Terem_fk0" Association="Self.Terem_fk0">
+            <End Role="Mozi" EntitySet="Mozi" />
+            <End Role="Terem" EntitySet="Terem" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk1" Association="Self.Vetítés_fk1">
+            <End Role="Mozi" EntitySet="Mozi" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk3" Association="Self.Vetítés_fk3">
+            <End Role="Nap" EntitySet="Nap" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+          <AssociationSet Name="Vetítés_fk2" Association="Self.Vetítés_fk2">
+            <End Role="Terem" EntitySet="Terem" />
+            <End Role="Vetítés" EntitySet="Vetítés" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Film">
+            <EntityTypeMapping TypeName="Database1Model.Film">
+              <MappingFragment StoreEntitySet="Film">
+                <ScalarProperty Name="FILM_PK" ColumnName="FILM_PK" />
+                <ScalarProperty Name="CIM" ColumnName="CIM" />
+                <ScalarProperty Name="JATEKIDO" ColumnName="JATEKIDO" />
+                <ScalarProperty Name="MUFAJ_FK" ColumnName="MUFAJ_FK" />
+                <ScalarProperty Name="KORHATAR" ColumnName="KORHATAR" />
+                <ScalarProperty Name="SZINKRON" ColumnName="SZINKRON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Időpont">
+            <EntityTypeMapping TypeName="Database1Model.Időpont">
+              <MappingFragment StoreEntitySet="Időpont">
+                <ScalarProperty Name="IDOPONT_PK" ColumnName="IDOPONT_PK" />
+                <ScalarProperty Name="IDOPONTOK" ColumnName="IDOPONTOK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jegy">
+            <EntityTypeMapping TypeName="Database1Model.Jegy">
+              <MappingFragment StoreEntitySet="Jegy">
+                <ScalarProperty Name="VENDEG_NEV" ColumnName="VENDEG_NEV" />
+                <ScalarProperty Name="JEGY_PK" ColumnName="JEGY_PK" />
+                <ScalarProperty Name="VETITES_FK" ColumnName="VETITES_FK" />
+                <ScalarProperty Name="KATEGORIA_FK" ColumnName="KATEGORIA_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategória">
+            <EntityTypeMapping TypeName="Database1Model.Kategória">
+              <MappingFragment StoreEntitySet="Kategória">
+                <ScalarProperty Name="KATEGORIA_PK" ColumnName="KATEGORIA_PK" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+                <ScalarProperty Name="AR" ColumnName="AR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mozi">
+            <EntityTypeMapping TypeName="Database1Model.Mozi">
+              <MappingFragment StoreEntitySet="Mozi">
+                <ScalarProperty Name="MOZI_PK" ColumnName="MOZI_PK" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+                <ScalarProperty Name="VAROS_FK" ColumnName="VAROS_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Műfaj">
+            <EntityTypeMapping TypeName="Database1Model.Műfaj">
+              <MappingFragment StoreEntitySet="Műfaj">
+                <ScalarProperty Name="MUFAJ_PK" ColumnName="MUFAJ_PK" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nap">
+            <EntityTypeMapping TypeName="Database1Model.Nap">
+              <MappingFragment StoreEntitySet="Nap">
+                <ScalarProperty Name="NAP_PK" ColumnName="NAP_PK" />
+                <ScalarProperty Name="NAPOK" ColumnName="NAPOK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Terem">
+            <EntityTypeMapping TypeName="Database1Model.Terem">
+              <MappingFragment StoreEntitySet="Terem">
+                <ScalarProperty Name="TEREM_PK" ColumnName="TEREM_PK" />
+                <ScalarProperty Name="MOZI_FK" ColumnName="MOZI_FK" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+                <ScalarProperty Name="ULOHELYEK" ColumnName="ULOHELYEK" />
+                <ScalarProperty Name="IMAX" ColumnName="IMAX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Város">
+            <EntityTypeMapping TypeName="Database1Model.Város">
+              <MappingFragment StoreEntitySet="Város">
+                <ScalarProperty Name="VÁROS_PK" ColumnName="VÁROS_PK" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vetítés">
+            <EntityTypeMapping TypeName="Database1Model.Vetítés">
+              <MappingFragment StoreEntitySet="Vetítés">
+                <ScalarProperty Name="VETITES_PK" ColumnName="VETITES_PK" />
+                <ScalarProperty Name="FILM_FK" ColumnName="FILM_FK" />
+                <ScalarProperty Name="MOZI_FK" ColumnName="MOZI_FK" />
+                <ScalarProperty Name="TEREM_FK" ColumnName="TEREM_FK" />
+                <ScalarProperty Name="NAP_FK" ColumnName="NAP_FK" />
+                <ScalarProperty Name="IDOPONTOK_FK" ColumnName="IDOPONTOK_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

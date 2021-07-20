@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bea329bdcfef4634b84f900f374d0cc2" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="Database1Model.Film" Width="1.5" PointX="2.375" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Időpont" Width="1.5" PointX="9.875" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Jegy" Width="1.5" PointX="8.375" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Kategória" Width="1.5" PointX="11.75" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Mozi" Width="1.5" PointX="4.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Műfaj" Width="1.5" PointX="0.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Nap" Width="1.5" PointX="10.375" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Terem" Width="1.5" PointX="4" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Város" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Vetítés" Width="1.5" PointX="7" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.Film_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Vetítés_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Vetítés_fk4" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Jegy_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Jegy_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Mozi_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Terem_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Vetítés_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Vetítés_fk3" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Vetítés_fk2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
